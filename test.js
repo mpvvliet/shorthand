@@ -14,7 +14,7 @@ describe('shorthand', function() {
   describe('GET nonexistent key', () => {
       it('it should return 404', (done) => {
         chai.request('http://' + HOST + ':' + PORT)
-            .get('/key1')
+            .get('/key/key1')
             .end((err, res) => {
                 res.should.have.status(404);
               done();
@@ -22,15 +22,16 @@ describe('shorthand', function() {
       });
   });
 
-  describe('POST new key', () => {
-      it('it should return status OK', (done) => {
+  var key = "";
+  describe('POST new value', () => {
+      it('it should return a key', (done) => {
         chai.request('http://' + HOST + ':' + PORT)
-            .post('/key2')
-            .send('{ "value": "abc123"}')
+            .post('/val/abc123')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a("object");
-                res.body.should.have.property("status").eql("OK");
+                res.body.should.have.property("key");
+                key = res.body.key;
               done();
             });
       });
@@ -39,7 +40,7 @@ describe('shorthand', function() {
   describe('GET existing key', () => {
       it('it should return the value', (done) => {
         chai.request('http://' + HOST + ':' + PORT)
-            .get('/key2')
+            .get('/key/' + key)
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a("object");

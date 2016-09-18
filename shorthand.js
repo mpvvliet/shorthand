@@ -5,7 +5,7 @@ var dispatcher = require('httpdispatcher');
 var cache = {};
 
 //Lets define a port we want to listen to
-const PORT=8080; 
+const PORT=8081; 
 
 //Lets use our dispatcher
 function handleRequest(request, response){
@@ -19,9 +19,19 @@ function handleRequest(request, response){
     }
 }
 
+function generateId() {
+    var text = "";
+    var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
 //A sample GET request    
-dispatcher.onGet(/\/([^\/]+)$/, function(req, res) {
-    var key = req.url.match(/\/([^\/]+)$/)[1];
+dispatcher.onGet(/key\/([^\/]+)$/, function(req, res) {
+    var key = req.url.match(/key\/([^\/]+)$/)[1];
     var value = cache[key];
     var result = "";
     if (value == null) {
@@ -36,12 +46,13 @@ dispatcher.onGet(/\/([^\/]+)$/, function(req, res) {
 });    
 
 //A sample POST request
-dispatcher.onPost(/\/([^\/]+)$/, function(req, res) {
-    var key = req.url.match(/\/([^\/]+)$/)[1];
-    cache[key] = JSON.parse(req.body).value
+dispatcher.onPost(/val\/([^\/]+)$/, function(req, res) {
+    var val = req.url.match(/val\/([^\/]+)$/)[1];
+    var key = generateId();
+    cache[key] = val
 
     res.writeHead(200, {'Content-Type': 'application/json'});
-    var result = { "status": "OK" }
+    var result = { "key": key }
     res.write(JSON.stringify(result))
     res.end();
 });
