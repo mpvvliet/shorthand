@@ -16,7 +16,7 @@ describe('shorthand', function() {
         chai.request('http://' + HOST + ':' + PORT)
             .get('/key1')
             .end((err, res) => {
-                res.should.have.status(404);
+                res.should.have.status(200);
               done();
             });
       });
