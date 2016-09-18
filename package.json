@@ -15,6 +15,7 @@
     "chai": "*", 
     "chai-http": "*",
     "mocha": "*",
+    "redis": "*",
     "test": ">=0.0.5" 
   }
 }
