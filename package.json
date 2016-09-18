@@ -1,0 +1,20 @@
+{
+  "name": "shorthand",
+  "version": "1.0.0",
+  "description": "Implements a cache for shorthand ids for strings",
+  "author": "Martin van Vliet <mpvvliet@gmail.com>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node shorthand.js",
+    "test": "mocha test.js"
+  },
+  "dependencies": {
+    "httpdispatcher": "^1.0.0"
+  },
+  "devDependencies": { 
+    "chai": "*", 
+    "chai-http": "*",
+    "mocha": "*",
+    "test": ">=0.0.5" 
+  }
+}
