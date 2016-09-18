@@ -1,13 +1,9 @@
-// TODO: implement usage of redis & attempt to run CD pipeline using docker-compose
 // NOTE: XLR 4.6 won't run the docker-compose plugin
 
 // require modules
 var http = require('http');
 var dispatcher = require('httpdispatcher');
 var redis = require('redis');
-
-// backwards compatibility, can be removed!
-var cache = {};
 
 // redis client
 var client = redis.createClient(6379, 'redis');
